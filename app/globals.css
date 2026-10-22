@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/*
+ * Tasarım token'ları: tek kaynak. Varsayılan tema koyudur; açık tema aynı
+ * değişkenleri [data-theme="light"] altında yeniden tanımlar.
+ * Palet nötrdür; tek marka aksanı "Siena" (terra di Siena) ölçülü kullanılır:
+ * aktif durumlar, odak, grafik vurgu serisi, hero parçacıkları.
+ * Tüm metin tonları zeminlerde WCAG AA (≥4,5) geçer.
+ */
+@theme {
+  --color-bg: #0a0a09;
+  --color-bg-deep: #070706;
+  --color-surface: #111110;
+  --color-surface-2: #181816;
+  --color-line-strong: #3a3934;
+  --color-line: #2a2925;
+  --color-line-soft: #1c1b19;
+  --color-fg: #ecebe7;
+  --color-muted: #a29e95;
+  --color-faint: #8c887f;
+
+  --color-accent: #e07f42;
+  --color-accent-fg: #0a0a09;
+
+  /* Durum renkleri: yalnızca ürün önizlemelerinde, her zaman ikon + etiketle */
+  --color-success: #7fb38f;
+  --color-warning: #d6a64f;
+  --color-danger: #e5715f;
+
+  --radius-card: 12px;
+  --radius-control: 6px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@theme inline {
+  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-google-sans-code), ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+[data-theme="light"] {
+  --color-bg: #f7f6f2;
+  --color-bg-deep: #efede7;
+  --color-surface: #ffffff;
+  --color-surface-2: #efede7;
+  --color-line-strong: #c4c0b6;
+  --color-line: #d9d6ce;
+  --color-line-soft: #e7e5df;
+  --color-fg: #141412;
+  --color-muted: #5d5950;
+  --color-faint: #6c685f;
+
+  --color-accent: #a8521b;
+  --color-accent-fg: #ffffff;
+
+  --color-success: #2f7a4a;
+  --color-warning: #8a6410;
+  --color-danger: #b3402f;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Mono mikro etiket: büyük harf, küçük punto, geniş aralık ("AFX · ALOKASYON") */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  /* Bölüm ayracı: ince taralı şerit */
+  .hatch {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--color-line-soft) 0 1px,
+      transparent 1px 8px
+    );
+  }
+}
+
+/*
+ * Hero giriş zaman çizelgesi. Gecikmeler distribution-engine.ts içindeki
+ * TIMELINE ile uyumludur; metin, ilk dağıtım dalgası bitince belirir.
+ * Yalnızca CSS ile çalıştığı için JS yüklenmeden de doğru zamanda oynar.
+ */
+.hero {
+  --hero-text-delay: 1.6s;
+}
+@media (min-width: 1024px) {
+  .hero {
+    --hero-text-delay: 2.85s;
+  }
+}
+
+.hero-contour {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+  animation: hero-draw 1.8s var(--ease-in-out-quart) both;
+}
+
+.hero-word {
+  animation: hero-word 0.7s var(--ease-out-expo) both;
+  animation-delay: calc(var(--hero-text-delay) + var(--i, 0) * 70ms);
+}
+
+.hero-fade {
+  animation: hero-fade 0.7s var(--ease-out-expo) both;
+  animation-delay: calc(var(--hero-text-delay) + var(--d, 0s));
+}
+
+.hero-pop {
+  animation: hero-pop 0.5s var(--ease-out-expo) both;
+}
+
+@keyframes hero-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hero-word {
+  from {
+    opacity: 0;
+    translate: 0 0.2em;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes hero-pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Akış çizgileri: modül diyagramındaki bağlantılar (nötr) */
+.flow-x {
+  background-image: repeating-linear-gradient(90deg, var(--color-line-strong) 0 4px, transparent 4px 10px);
+  background-size: 10px 100%;
+  animation: flow-x 1.2s linear infinite;
+}
+.flow-y {
+  background-image: repeating-linear-gradient(180deg, var(--color-line-strong) 0 4px, transparent 4px 10px);
+  background-size: 100% 10px;
+  animation: flow-y 1.2s linear infinite;
+}
+@keyframes flow-x {
+  to {
+    background-position: 10px 0;
+  }
+}
+@keyframes flow-y {
+  to {
+    background-position: 0 10px;
+  }
+}
+
+.flow-dash {
+  stroke-dasharray: 3 6;
+  animation: flow-dash 1.6s linear infinite;
+}
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-contour,
+  .hero-word,
+  .hero-fade,
+  .hero-pop,
+  .flow-x,
+  .flow-y,
+  .flow-dash {
+    animation: none;
+  }
+}
+
+/* Sayfa geçişleri: React <ViewTransition> + View Transitions API */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.page-out) {
+  animation: 160ms ease-in both vt-fade reverse;
+}
+
+::view-transition-new(.page-in) {
+  animation: 280ms var(--ease-out-expo) 100ms both vt-fade, 420ms var(--ease-out-expo) 60ms both vt-rise;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-rise {
+  from {
+    translate: 0 8px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
