@@ -33,6 +33,12 @@ export default function AboutPage() {
                   <p className={i === 0 ? "text-xl text-fg" : undefined}>{p}</p>
                 </Reveal>
               ))}
+              <Reveal delay={0.1} className="mt-4 border-t border-line-soft pt-8">
+                <p className="flex items-start gap-3 font-display text-2xl leading-snug font-medium tracking-[-0.025em] text-fg sm:text-3xl">
+                  <span aria-hidden className="mt-3 size-1.5 shrink-0 rounded-full bg-accent" />
+                  {story.closing}
+                </p>
+              </Reveal>
             </div>
           </div>
         </Container>
