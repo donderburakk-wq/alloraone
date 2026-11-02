@@ -36,6 +36,10 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   // Kullanılan çatıyı ifşa eden X-Powered-By başlığını gönderme.
   poweredByHeader: false,
+  async redirects() {
+    // Vizyon & Misyon artık Hakkımızda sayfasının bir bölümü (308).
+    return [{ source: "/vizyon-misyon", destination: "/hakkimizda#vizyon-misyon", permanent: true }];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
