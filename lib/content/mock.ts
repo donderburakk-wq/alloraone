@@ -11,11 +11,11 @@ export const flussoMock = {
     { label: "Kapsanan mağaza", value: "86", unit: "/ 92" },
     { label: "Meteo düzeltmesi", value: "14", unit: "ürün" },
   ],
-  columns: ["Mağaza", "Ürün · Beden", "Stok", "Öneri", "Meteo"],
+  columns: ["Mağaza", "Ürün · Varyant", "Stok", "Öneri", "Meteo"],
   rows: [
     { store: "İstanbul · Kadıköy", item: "Trençkot · M", stock: 4, suggest: 12, meteo: 0.9 },
-    { store: "Ankara · Çankaya", item: "Trençkot · L", stock: 2, suggest: 9, meteo: 1.0 },
-    { store: "Antalya · Lara", item: "Keten gömlek · M", stock: 6, suggest: 14, meteo: 1.3 },
+    { store: "Ankara · Çankaya", item: "Spor ayakkabı · 42", stock: 2, suggest: 9, meteo: 1.0 },
+    { store: "Antalya · Lara", item: "Güneş kremi · SPF 50", stock: 6, suggest: 14, meteo: 1.3 },
     { store: "Trabzon · Merkez", item: "Yağmurluk · S", stock: 1, suggest: 11, meteo: 1.4 },
     { store: "İzmir · Alsancak", item: "Trençkot · S", stock: 9, suggest: 0, meteo: 0.7 },
   ],
@@ -88,4 +88,31 @@ export const bilanciaMock = {
       { product: "Trençkot", price: "₺3.200", discount: "—", when: "Bekle", uplift: "—" },
     ],
   },
+};
+
+export const lenteMock = {
+  title: "Rapporto · Haftalık satış raporu",
+  period: "Hafta 42",
+  schedule: "Calendario · Pazartesi · 08:30 · e-posta",
+  sourcesTitle: "Fonte · Kaynaklar",
+  sources: [
+    { name: "satis_hareketleri", rows: "2,4 Mn", active: true },
+    { name: "stok_durumu", rows: "184 B", active: false },
+    { name: "magaza_listesi", rows: "92", active: false },
+    { name: "urun_katalogu", rows: "12,6 B", active: false },
+  ],
+  kpis: [
+    { label: "Net satış", value: "₺4,82 Mn", delta: "+%6,1" },
+    { label: "Satış adedi", value: "18.640", delta: "+%3,4" },
+    { label: "Aktif mağaza", value: "92", delta: "±0" },
+  ],
+  filters: ["Bölge · Tümü", "Kategori · Tümü", "Son 4 hafta"],
+  columns: ["Mağaza", "Kategori", "Satış (₺)", "Adet", "Değişim"],
+  rows: [
+    { store: "İstanbul · Kadıköy", category: "Giyim", sales: "812.400", qty: "3.120", delta: "+%8,2" },
+    { store: "Ankara · Çankaya", category: "Elektronik", sales: "764.900", qty: "1.480", delta: "+%4,7" },
+    { store: "İzmir · Alsancak", category: "Kozmetik", sales: "538.200", qty: "4.260", delta: "−%1,3" },
+    { store: "Antalya · Lara", category: "Ev & yaşam", sales: "497.600", qty: "2.050", delta: "+%11,5" },
+    { store: "Bursa · Nilüfer", category: "Ayakkabı", sales: "421.300", qty: "1.730", delta: "+%2,9" },
+  ],
 };

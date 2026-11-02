@@ -39,7 +39,7 @@ export function OtherModules({ current }: { current: Module }) {
         <h2 id="other-modules" className="eyebrow mb-6">
           {services.modulePage.otherModules}
         </h2>
-        <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-3">
+        <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {others.map((m) => (
             <li key={m.slug} className="bg-bg">
               <Link

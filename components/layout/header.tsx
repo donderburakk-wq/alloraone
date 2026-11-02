@@ -141,7 +141,7 @@ export function Header() {
                         <div className="overflow-hidden rounded-card border border-line bg-surface">
                           <ul className="grid grid-cols-2 gap-px bg-line-soft">
                             {modules.map((m) => (
-                              <li key={m.slug} className="bg-surface">
+                              <li key={m.slug} className="bg-surface last:odd:col-span-2">
                                 <Link
                                   href={`/hizmetler/${m.slug}`}
                                   className="flex h-full flex-col gap-3 p-5 transition-colors hover:bg-surface-2"

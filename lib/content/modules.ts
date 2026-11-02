@@ -1,4 +1,4 @@
-export type ModuleSlug = "flusso" | "polso" | "bilancia" | "porto";
+export type ModuleSlug = "flusso" | "polso" | "bilancia" | "lente" | "porto";
 
 /** components/ui/icon.tsx içindeki eşlemeyle birebir olmalı. */
 export type IconName =
@@ -27,7 +27,11 @@ export type IconName =
   | "line-chart"
   | "shield-check"
   | "map-pin"
-  | "sparkles";
+  | "sparkles"
+  | "cable"
+  | "file-text"
+  | "sliders-horizontal"
+  | "calendar-clock";
 
 export type ModuleFeature = {
   /** İtalyanca isim */
@@ -46,6 +50,8 @@ export type Module = {
   code: string;
   /** Mono etikette koddan sonra gelen kısa kategori: "AFX · ALOKASYON" */
   label: string;
+  /** İsmin Türkçe karşılığı: "Akış", "Nabız"… */
+  meaning: string;
   status: "live" | "soon";
   /** Tek cümlelik değer önerisi */
   tagline: string;
@@ -64,25 +70,26 @@ export const modules: Module[] = [
     name: "Flusso",
     code: "AFX",
     label: "Alokasyon",
+    meaning: "Akış",
     status: "live",
     tagline:
-      "Stoğunuzu talebin olduğu mağazaya, doğru bedende ve doğru zamanda ulaştırır.",
+      "Her ürünü, doğru miktarda, talebin olduğu mağazaya ve doğru zamanda ulaştırır.",
     summary:
-      "Mağaza bazlı anlık stok görünürlüğü ve yapay zekâ ile mağaza/beden kırılımında alokasyon önerisi.",
+      "Mağaza bazlı anlık stok görünürlüğü ve yapay zekâ ile mağaza ve ürün/varyant kırılımında alokasyon önerisi.",
     role: "Stoğu dağıtır",
     features: [
       {
         it: "Scorta",
         tr: "Stok Takibi",
         description:
-          "Her mağazanın her ürün ve bedendeki stoğunu anlık olarak tek ekranda görün. Eksik ve fazla stok, oluştuğu anda görünür hale gelir.",
+          "Her mağazanın her ürün ve varyantındaki stoğunu anlık olarak tek ekranda görün. Eksik ve fazla stok, oluştuğu anda görünür hale gelir.",
         icon: "boxes",
       },
       {
         it: "Rotta",
         tr: "Alokasyon Önerisi",
         description:
-          "Geçmiş satış ve stok verisinden öğrenen yapay zekâ, her mağaza ve beden için dağıtım miktarı önerir. Mağazanın m² kapasitesi ile yerel ve genel beden oranları hesaba katılır.",
+          "Geçmiş satış ve stok verisinden öğrenen yapay zekâ, her mağaza ve ürün/varyant için dağıtım miktarı önerir. Mağazanın m² kapasitesi ile mağazaya özgü talep profilleri hesaba katılır.",
         icon: "route",
       },
       {
@@ -103,14 +110,14 @@ export const modules: Module[] = [
     ],
     benefits: [
       "Yanlış mağazada bekleyen stok azalır, raf alanı satan ürüne kalır.",
-      "Beden kırılımında daha az kayıp satış yaşanır.",
+      "Varyant kırılımında daha az kayıp satış yaşanır.",
       "Sezon dışı ürün sevkiyatının önüne geçilir.",
       "Planlama ekibi hesaplamaya değil, önerileri değerlendirmeye zaman ayırır.",
     ],
     seo: {
       title: "AlloraOne Flusso · Stok takibi ve yapay zekâ ile mağaza alokasyonu",
       description:
-        "AlloraOne Flusso; anlık stok görünürlüğü, yapay zekâ destekli mağaza/beden alokasyon önerisi, hava durumu etkisi ve depodan mağazaya ya da mağazalar arası transfer önerileri sunar.",
+        "AlloraOne Flusso; anlık stok görünürlüğü, yapay zekâ destekli mağaza ve ürün/varyant bazlı alokasyon önerisi, hava durumu etkisi ve depodan mağazaya ya da mağazalar arası transfer önerileri sunar.",
     },
   },
   {
@@ -118,6 +125,7 @@ export const modules: Module[] = [
     name: "Polso",
     code: "APL",
     label: "Performans",
+    meaning: "Nabız",
     status: "live",
     tagline:
       "Perakendeden üretime, işletmenizin performansının nabzını tutar; nerede aksiyon almanız gerektiğini gösterir.",
@@ -171,6 +179,7 @@ export const modules: Module[] = [
     name: "Bilancia",
     code: "ABL",
     label: "Fiyatlama",
+    meaning: "Terazi",
     status: "live",
     tagline: "Fiyat ile satış hızı arasındaki dengeyi yapay zekâ ile kurar.",
     summary:
@@ -212,10 +221,62 @@ export const modules: Module[] = [
     },
   },
   {
+    slug: "lente",
+    name: "Lente",
+    code: "ALN",
+    label: "Raporlama",
+    meaning: "Mercek",
+    status: "live",
+    tagline: "Veriniz zaten var. Lente onu okunur, paylaşılır raporlara dönüştürür.",
+    summary:
+      "Kendi veritabanınıza bağlanarak satış, stok, mağaza ve ürün verinizi raporlar ve analizlere dönüştürür.",
+    role: "Veriyi okur",
+    features: [
+      {
+        it: "Fonte",
+        tr: "Veri Bağlantısı",
+        description:
+          "İşletmenin mevcut veritabanına (ERP, POS, satış sistemleri) bağlanır; veriyi taşımadan, yerinde çalışır. [DOĞRULANACAK: desteklenen veritabanı türleri ve erişim modeli]",
+        icon: "cable",
+      },
+      {
+        it: "Rapporto",
+        tr: "Hazır Raporlar",
+        description: "Satış, stok, mağaza ve ürün performansı için hazır rapor şablonları.",
+        icon: "file-text",
+      },
+      {
+        it: "Misura",
+        tr: "Özel Raporlar",
+        description: "İşletmeye özel metrik ve kırılımlarla kişiselleştirilmiş raporlar.",
+        icon: "sliders-horizontal",
+      },
+      {
+        it: "Calendario",
+        tr: "Zamanlanmış Raporlar",
+        description:
+          "Raporların belirlenen sıklıkta ilgili ekiplere otomatik iletilmesi. [DOĞRULANACAK: iletim kanalları ve dışa aktarım formatları]",
+        icon: "calendar-clock",
+      },
+    ],
+    benefits: [
+      "Mevcut verinizden, ekiplerin kolayca okuyabileceği raporlar üretilir.",
+      "Aynı rapor herkese aynı rakamı gösterir; toplantılar veriyi yorumlamakla geçer.",
+      "Satış, stok, mağaza ve ürün performansı tek yerden izlenir.",
+      "Raporlar hazırlanmayı beklemez; belirlenen sıklıkta ekiplere kendiliğinden ulaşır.",
+    ],
+    seo: {
+      title: "AlloraOne Lente · Veritabanınızdan raporlama ve analiz",
+      description:
+        "AlloraOne Lente; işletmenizin mevcut veritabanına bağlanarak satış, stok, mağaza ve ürün performansı için hazır ve özel raporlar sunar, raporları zamanlanmış olarak ekiplerinize iletir.",
+    },
+  },
+  {
     slug: "porto",
     name: "Porto",
     code: "APT",
     label: "Depo",
+    meaning: "Liman",
     status: "soon",
     tagline: "Deponuzun kendisini yönetecek WMS modülümüz yolda.",
     summary:
@@ -265,7 +326,7 @@ export const modules: Module[] = [
 /** Flusso sayfasının açılış sahnesi: merkez depodan mağazalara akıllı dağıtım. */
 export const flussoHero = {
   title: ["Doğru ürün.", "Doğru mağaza.", "Doğru zaman."],
-  subtitle: "Stoğunuzu talebin olduğu mağazaya, doğru bedende ve doğru zamanda ulaştırır.",
+  subtitle: "Her ürünü, doğru miktarda, talebin olduğu mağazaya ve doğru zamanda ulaştırır.",
   primaryCta: { label: "Bize Ulaşın", href: "/iletisim#form" },
   secondaryCta: { label: "Tüm modüller", href: "/hizmetler" },
   warehouseLabel: "Merkez depo",

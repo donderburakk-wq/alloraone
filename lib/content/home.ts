@@ -4,7 +4,7 @@ export const home = {
   seo: {
     title: "AlloraOne · Veriden karara, tek platformda.",
     description:
-      "AlloraOne; alokasyon, performans, fiyatlama ve depo kararlarınızı yapay zekâ ile veriye dayandıran karar destek platformudur. Perakende, hazır giyim, FMCG ve üretim için.",
+      "AlloraOne; alokasyon, performans, fiyatlama ve depo kararlarınızı yapay zekâ ile veriye dayandıran karar destek platformudur. Çok mağazalı perakende işletmeleri ve üretim için.",
   },
 
   hero: {
@@ -15,7 +15,7 @@ export const home = {
     primaryCta: { label: "Bize Ulaşın", href: "/iletisim#form" },
     secondaryCta: { label: "Modülleri Keşfet", href: "/hizmetler" },
     sectorsLabel: "Sektörler",
-    sectors: ["Perakende", "Hazır giyim", "FMCG", "Üretim"],
+    sectors: ["Giyim", "Ayakkabı", "Kozmetik", "Elektronik", "Ev & yaşam", "FMCG", "Üretim"],
   },
 
   problems: {
@@ -30,7 +30,7 @@ export const home = {
           "Bir mağazada raflar dolu, diğerinde aynı ürün tükenmiş. Kayıp satış ve indirim baskısı aynı anda büyür.",
         solution: "Talebe göre alokasyon",
         solutionText:
-          "Flusso, her mağaza ve beden için dağıtım miktarını talep tahminine göre önerir; fazlayı ihtiyaç olan mağazaya transfer eder.",
+          "Flusso, her mağaza ve ürün/varyant için dağıtım miktarını talep tahminine göre önerir; fazlayı ihtiyaç olan mağazaya transfer eder.",
         module: "flusso" as ModuleSlug,
       },
       {
@@ -56,7 +56,7 @@ export const home = {
 
   modules: {
     eyebrow: "Modüller",
-    title: "Tek platform, birbirini besleyen dört modül.",
+    title: "Tek platform, birbirini besleyen beş modül.",
     lead: "İhtiyacınız olan modülle başlayın; diğerleri aynı veri altyapısı üzerine eklenir.",
     cardCta: "İncele",
     /** Kart animasyonlarındaki küçük, dekoratif etiketler */

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { footerNav, mainNav, ui } from "@/lib/content/nav";
 import { modules } from "@/lib/content/modules";
@@ -18,9 +19,16 @@ export function Footer() {
 
         <FooterColumn title={footerNav.pagesTitle} className="lg:col-span-2">
           {mainNav.map((item) => (
-            <li key={item.href}>
-              <FooterLink href={item.href}>{item.label}</FooterLink>
-            </li>
+            <Fragment key={item.href}>
+              <li>
+                <FooterLink href={item.href}>{item.label}</FooterLink>
+              </li>
+              {item.href === "/hakkimizda" && (
+                <li>
+                  <FooterLink href={footerNav.vision.href}>{footerNav.vision.label}</FooterLink>
+                </li>
+              )}
+            </Fragment>
           ))}
         </FooterColumn>
 

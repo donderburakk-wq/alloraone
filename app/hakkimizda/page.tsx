@@ -1,18 +1,21 @@
 import { UserRound } from "lucide-react";
+import { modules } from "@/lib/content/modules";
 import { about } from "@/lib/content/about";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHeader } from "@/components/ui/page-header";
 import { Container } from "@/components/ui/container";
-import { SectionHeading, TwoTone } from "@/components/ui/section-heading";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { Divider } from "@/components/ui/divider";
 import { Icon } from "@/components/ui/icon";
+import { ModuleCode } from "@/components/ui/module-mark";
 import { Reveal } from "@/components/animations/reveal";
+import { ScrollText } from "@/components/animations/scroll-text";
 import { CtaBand } from "@/components/sections/cta-band";
 
 export const metadata = pageMetadata({ ...about.seo, path: "/hakkimizda" });
 
 export default function AboutPage() {
-  const { intro, story, problem, values, team } = about;
+  const { intro, story, vision, names, values, team } = about;
   return (
     <>
       <PageHeader eyebrow={intro.eyebrow} title={intro.title} lead={intro.lead} />
@@ -37,42 +40,88 @@ export default function AboutPage() {
       </section>
       <Divider />
 
-      {/* Alokasyon neden kritik? */}
-      <section className="py-24 sm:py-36" aria-labelledby="problem-title">
-        <Container>
-          <Reveal className="max-w-5xl">
-            <p className="eyebrow">{problem.eyebrow}</p>
-            <h2
-              id="problem-title"
-              className="mt-8 font-display text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[0.98] font-medium tracking-[-0.045em]"
-            >
-              <TwoTone text={problem.question} />
-            </h2>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">{problem.lead}</p>
+      {/* Vizyon & Misyon (eski /vizyon-misyon sayfası) */}
+      <section id="vizyon-misyon" className="scroll-mt-24" aria-labelledby="vision-title">
+        <Container className="pt-24 sm:pt-32">
+          <Reveal>
+            <SectionHeading eyebrow={vision.eyebrow} title={vision.title} id="vision-title" />
           </Reveal>
-
-          <Reveal delay={0.1} className="mt-16">
-            <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-3">
-              {problem.sectors.map((s, i) => (
-                <li key={s.name} className="bg-bg">
-                  <article className="flex h-full flex-col gap-6 p-7 sm:p-8">
+        </Container>
+        {[vision.vision, vision.mission].map((b, i) => (
+          <div key={b.label}>
+            {i > 0 && <Divider />}
+            <div role="group" aria-labelledby={`block-${i}`} className="py-16 sm:py-24">
+              <Container className="grid gap-10 lg:grid-cols-12">
+                <Reveal className="lg:col-span-3">
+                  <h3 id={`block-${i}`} className="eyebrow">
+                    {b.index} <span aria-hidden>·</span> <span className="text-fg">{b.label}</span>
+                  </h3>
+                </Reveal>
+                <div className="lg:col-span-9">
+                  <ScrollText
+                    text={b.text}
+                    className="font-display text-[clamp(1.9rem,4.2vw,3.5rem)] leading-[1.12] font-medium tracking-[-0.035em]"
+                  />
+                </div>
+              </Container>
+            </div>
+          </div>
+        ))}
+        <Container className="pb-24 sm:pb-32">
+          <Reveal>
+            <p className="eyebrow mb-6">{vision.goals.eyebrow}</p>
+            <h3 className="font-display text-3xl leading-[1] font-medium tracking-[-0.035em] sm:text-4xl">
+              {vision.goals.title}
+            </h3>
+          </Reveal>
+          <Reveal className="mt-12">
+            <ol className="grid gap-px overflow-hidden rounded-card border border-line bg-line lg:grid-cols-3">
+              {vision.goals.items.map((g, i) => (
+                <li key={g.title} className="bg-bg">
+                  <article className="flex h-full flex-col gap-6 p-8">
                     <div className="flex items-center justify-between">
                       <span className="eyebrow">{`0${i + 1}`}</span>
-                      <Icon name={s.icon} className="size-5 text-muted" />
+                      <Icon name={g.icon} className="size-5 text-muted" />
                     </div>
-                    <h3 className="font-display text-2xl font-medium tracking-[-0.025em]">{s.name}</h3>
-                    <p className="leading-relaxed text-muted">{s.text}</p>
+                    <h4 className="font-display text-2xl font-medium tracking-[-0.025em]">{g.title}</h4>
+                    <p className="leading-relaxed text-muted">{g.text}</p>
+                  </article>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </Container>
+      </section>
+      <Divider />
+
+      {/* İsmin anlamı */}
+      <section className="py-24 sm:py-32" aria-labelledby="names-title">
+        <Container>
+          <Reveal className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <SectionHeading eyebrow={names.eyebrow} title={names.title} id="names-title" />
+            <p className="max-w-sm leading-relaxed text-muted lg:pb-1">{names.lead}</p>
+          </Reveal>
+          <Reveal className="mt-14">
+            <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+              <li className="bg-bg">
+                <article className="flex h-full flex-col gap-6 p-7">
+                  <span className="eyebrow">Platform</span>
+                  <h3 className="font-display text-2xl font-medium tracking-[-0.025em]">{names.platform.name}</h3>
+                  <p className="leading-relaxed text-muted">{names.platform.text}</p>
+                </article>
+              </li>
+              {modules.map((m) => (
+                <li key={m.slug} className="bg-bg">
+                  <article className="flex h-full flex-col gap-6 p-7">
+                    <ModuleCode module={m} short />
+                    <h3 className="font-display text-2xl font-medium tracking-[-0.025em]">{m.name}</h3>
+                    <p className="leading-relaxed text-muted">
+                      {m.name}: {m.meaning.toLocaleLowerCase("tr")}. {names.moduleTexts[m.slug]}
+                    </p>
                   </article>
                 </li>
               ))}
             </ul>
-          </Reveal>
-
-          <Reveal className="mt-10">
-            <p className="flex items-center gap-3 text-lg text-fg">
-              <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-accent" />
-              {problem.closing}
-            </p>
           </Reveal>
         </Container>
       </section>

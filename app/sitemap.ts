@@ -3,7 +3,7 @@ import { modules } from "@/lib/content/modules";
 import { site } from "@/lib/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ["/", "/hakkimizda", "/vizyon-misyon", "/hizmetler", "/iletisim", "/kvkk"];
+  const paths = ["/", "/hakkimizda", "/hizmetler", "/iletisim", "/kvkk"];
   return [
     ...paths.map((p) => ({
       url: new URL(p, site.url).toString(),

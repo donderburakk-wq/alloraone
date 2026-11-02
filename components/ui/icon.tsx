@@ -4,11 +4,14 @@ import {
   BadgePercent,
   Boxes,
   Brain,
+  Cable,
+  CalendarClock,
   ChartLine,
   CheckCheck,
   CloudSun,
   Database,
   Eye,
+  FileText,
   LayoutDashboard,
   Layers,
   Lightbulb,
@@ -20,6 +23,7 @@ import {
   ScanSearch,
   ShieldCheck,
   ShoppingBasket,
+  SlidersHorizontal,
   Siren,
   Sparkles,
   Target,
@@ -57,6 +61,10 @@ const icons: Record<IconName, LucideIcon> = {
   "shield-check": ShieldCheck,
   "map-pin": MapPin,
   sparkles: Sparkles,
+  cable: Cable,
+  "file-text": FileText,
+  "sliders-horizontal": SlidersHorizontal,
+  "calendar-clock": CalendarClock,
 };
 
 export function Icon({ name, ...props }: { name: IconName } & LucideProps) {

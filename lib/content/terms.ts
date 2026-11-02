@@ -21,6 +21,10 @@ export const foreignTerms: Record<string, "it" | "en"> = {
   Vetrina: "it",
   Raccolta: "it",
   Tempo: "it",
+  Fonte: "it",
+  Rapporto: "it",
+  Misura: "it",
+  Calendario: "it",
   // Perakende metrikleri (İngilizce)
   "Sell-through": "en",
   "Sell-through (%)": "en",

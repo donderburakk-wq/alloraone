@@ -1,7 +1,0 @@
-$ next start
-▲ Next.js 16.4.2
-- Local:         http://localhost:3000
-- Network:       http://100.121.81.45:3000
-✓ Ready in 613ms
-✓ Running next.config.ts took 113ms
-[ELIFECYCLE] Command failed with exit code -1.

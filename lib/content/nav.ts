@@ -3,7 +3,6 @@ export type NavItem = { label: string; href: string };
 export const mainNav: NavItem[] = [
   { label: "Ana Sayfa", href: "/" },
   { label: "Hakkımızda", href: "/hakkimizda" },
-  { label: "Vizyon & Misyon", href: "/vizyon-misyon" },
   { label: "Hizmetlerimiz", href: "/hizmetler" },
   { label: "Bize Ulaşın", href: "/iletisim" },
 ];
@@ -18,6 +17,7 @@ export const footerNav = {
   pagesTitle: "Sayfalar",
   modulesTitle: "Modüller",
   contactTitle: "İletişim",
+  vision: { label: "Vizyon & Misyon", href: "/hakkimizda#vizyon-misyon" },
   legal: [{ label: "KVKK Aydınlatma Metni", href: "/kvkk" }],
 };
 

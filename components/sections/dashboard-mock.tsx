@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { ArrowRight, CircleAlert, Lightbulb, TriangleAlert } from "lucide-react";
+import { ArrowRight, CalendarClock, CircleAlert, Database, Lightbulb, TriangleAlert } from "lucide-react";
 import type { Module } from "@/lib/content/modules";
 import { services } from "@/lib/content/services";
-import { bilanciaMock, flussoMock, polsoMock } from "@/lib/content/mock";
+import { bilanciaMock, flussoMock, lenteMock, polsoMock } from "@/lib/content/mock";
 import { Container } from "@/components/ui/container";
 import { LangText } from "@/components/ui/lang-text";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -16,11 +16,16 @@ import { cn } from "@/lib/utils";
  */
 export function DashboardPreview({ module: m }: { module: Module }) {
   const { modulePage } = services;
-  const body =
-    m.slug === "flusso" ? <FlussoBody /> : m.slug === "polso" ? <PolsoBody /> : m.slug === "bilancia" ? <BilanciaBody /> : null;
-  if (!body) return null;
-  const meta =
-    m.slug === "flusso" ? flussoMock : m.slug === "polso" ? polsoMock : { title: bilanciaMock.title, period: bilanciaMock.product };
+  const previews = {
+    flusso: { body: <FlussoBody />, meta: flussoMock },
+    polso: { body: <PolsoBody />, meta: polsoMock },
+    bilancia: { body: <BilanciaBody />, meta: { title: bilanciaMock.title, period: bilanciaMock.product } },
+    lente: { body: <LenteBody />, meta: lenteMock },
+    porto: null,
+  } as const;
+  const preview = previews[m.slug];
+  if (!preview) return null;
+  const { body, meta } = preview;
 
   return (
     <section className="relative py-24 sm:py-32" aria-labelledby="preview-title">
@@ -334,5 +339,97 @@ function ElasticityChart() {
         {d.suggested.label} · {sug.demand}
       </text>
     </svg>
+  );
+}
+
+// --- Lente -------------------------------------------------------------------
+
+function LenteBody() {
+  const d = lenteMock;
+  return (
+    <div className="grid gap-4 lg:grid-cols-12">
+      <Panel title={d.sourcesTitle} className="lg:col-span-3">
+        <ul className="flex flex-col gap-1">
+          {d.sources.map((s) => (
+            <li
+              key={s.name}
+              className={cn(
+                "flex items-center justify-between gap-3 rounded-control px-2.5 py-2 text-sm",
+                s.active ? "bg-surface-2 text-fg" : "text-muted",
+              )}
+            >
+              <span className="flex min-w-0 items-center gap-2">
+                <Database aria-hidden className="size-3.5 shrink-0" strokeWidth={1.5} />
+                <span className="truncate font-mono text-xs">{s.name}</span>
+              </span>
+              <span className="font-mono text-xs text-faint">{s.rows}</span>
+            </li>
+          ))}
+        </ul>
+      </Panel>
+
+      <div className="grid gap-4 lg:col-span-9">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <ul className="flex flex-wrap gap-2">
+            {d.filters.map((f, i) => (
+              <li
+                key={f}
+                className={cn(
+                  "rounded-full border px-3 py-1 text-xs",
+                  i === 2 ? "border-line-strong text-fg" : "border-line text-muted",
+                )}
+              >
+                {f}
+              </li>
+            ))}
+          </ul>
+          <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5">
+            <CalendarClock aria-hidden className="size-3.5" strokeWidth={1.5} />
+            <LangText text={d.schedule} />
+          </span>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          {d.kpis.map((k) => (
+            <Panel key={k.label}>
+              <p className="eyebrow">{k.label}</p>
+              <p className="mt-2 text-2xl font-medium tracking-[-0.03em] text-fg sm:text-3xl">{k.value}</p>
+              <p className="mt-1 text-xs text-muted">
+                <span className={k.delta.startsWith("+") ? "text-success" : undefined}>{k.delta}</span>
+              </p>
+            </Panel>
+          ))}
+        </div>
+
+        <Panel className="overflow-x-auto p-0 sm:p-0">
+          <table className="w-full min-w-[32rem] text-left text-sm">
+            <thead>
+              <tr className="eyebrow border-b border-line-soft">
+                {d.columns.map((c, i) => (
+                  <th key={c} className={cn("px-4 py-3 font-normal sm:px-5", i >= 2 && "text-right")}>
+                    {c}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="tabular-nums">
+              {d.rows.map((r) => (
+                <tr key={r.store} className="border-b border-line-soft last:border-0">
+                  <td className="px-4 py-3 text-fg sm:px-5">{r.store}</td>
+                  <td className="px-4 py-3 text-muted sm:px-5">{r.category}</td>
+                  <td className="px-4 py-3 text-right font-mono text-fg sm:px-5">{r.sales}</td>
+                  <td className="px-4 py-3 text-right font-mono text-muted sm:px-5">{r.qty}</td>
+                  <td className="px-4 py-3 text-right sm:px-5">
+                    <span className="rounded-full border border-line px-2 py-0.5 font-mono text-xs text-muted">
+                      {r.delta}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Panel>
+      </div>
+    </div>
   );
 }

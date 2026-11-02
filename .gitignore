@@ -1,0 +1,4 @@
+node_modules
+.next
+start.log
+*.tsbuildinfo

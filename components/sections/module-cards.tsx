@@ -6,13 +6,14 @@ import { modules, type Module, type ModuleSlug } from "@/lib/content/modules";
 import { ui } from "@/lib/content/nav";
 import { ModuleCode, SoonBadge } from "@/components/ui/module-mark";
 import { Reveal } from "@/components/animations/reveal";
-import { BilanciaScale, FlussoMini, PolsoPulse, PortoShelves } from "@/components/animations/module-minis";
+import { BilanciaScale, FlussoMini, LenteLens, PolsoPulse, PortoShelves } from "@/components/animations/module-minis";
 import { cn } from "@/lib/utils";
 
 export const moduleMinis: Record<ModuleSlug, ComponentType> = {
   flusso: FlussoMini,
   polso: PolsoPulse,
   bilancia: BilanciaScale,
+  lente: LenteLens,
   porto: PortoShelves,
 };
 
@@ -29,15 +30,26 @@ export function ModuleCards({
 }) {
   return (
     <Reveal className={className}>
-      <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2">
-        {items.map((m) => (
-          <li key={m.slug} className="bg-bg">
+      <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-6">
+        {items.map((m, i) => (
+          <li key={m.slug} className={cn("bg-bg", spanClass(i, items.length))}>
             <ModuleCard module={m} showCode={showCode} />
           </li>
         ))}
       </ul>
     </Reveal>
   );
+}
+
+/**
+ * Masaüstünde 6 sütunlu ızgara: 5 kartta üst satırda 3 eşit kart (2'şer sütun),
+ * alt satırda 2 geniş kart (3'er sütun). Tablette son tek kart tam genişlik alır.
+ */
+function spanClass(i: number, n: number) {
+  if (n === 5) {
+    return i < 3 ? "lg:col-span-2" : i === 4 ? "md:col-span-2 lg:col-span-3" : "lg:col-span-3";
+  }
+  return "lg:col-span-3";
 }
 
 export function ModuleCard({

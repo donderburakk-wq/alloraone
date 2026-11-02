@@ -2,18 +2,23 @@ export const services = {
   seo: {
     title: "Hizmetlerimiz",
     description:
-      "AlloraOne Flusso, Polso, Bilancia ve Porto: stok alokasyonu, KPI takibi, fiyat optimizasyonu ve depo yönetimi için birbirini besleyen dört modül.",
+      "AlloraOne Flusso, Polso, Bilancia, Lente ve Porto: stok alokasyonu, KPI takibi, fiyat optimizasyonu, veritabanından raporlama ve depo yönetimi için birbirini besleyen beş modül.",
   },
   intro: {
     eyebrow: "Hizmetlerimiz",
     title: "Stoktan fiyata, mağazadan depoya.",
-    lead: "AlloraOne dört modülden oluşur. Her biri tek başına değer üretir; birlikte kullanıldığında birbirinin verisini besler.",
+    lead: "AlloraOne beş modülden oluşur. Her biri tek başına değer üretir; birlikte kullanıldığında birbirinin verisini besler.",
   },
   diagram: {
     eyebrow: "Modüller nasıl birlikte çalışır?",
-    title: "Bir döngü, dört rol.",
-    lead: "Flusso'nun dağıttığı stoğu Polso ölçer, Polso'nun gördüğünü Bilancia fiyata yansıtır. Porto ise bu döngünün başladığı yeri, deponun kendisini yönetir.",
+    title: "Bir temel katman, bir döngü.",
+    lead: "Lente, işletmenizin veri katmanını okuyan temel katmandır. Flusso'nun dağıttığı stoğu Polso ölçer, Polso'nun gördüğünü Bilancia fiyata yansıtır. Porto ise bu döngünün başladığı yeri, deponun kendisini yönetir.",
     loopNote: "Sonuçlar bir sonraki dağıtım kararına geri döner.",
+  },
+  source: {
+    eyebrow: "Veri katmanı",
+    title: "Mevcut veritabanınız",
+    text: "Verinin zaten bulunduğu yer",
   },
   cards: {
     eyebrow: "Modüller",
@@ -27,7 +32,7 @@ export const services = {
     featuresTitle: "Neler yapar?",
     highlightLabel: "Ayırt edici özellik",
     previewEyebrow: "Örnek ekran",
-    previewTitle: "Kararlar, gerekçeleriyle tek ekranda.",
+    previewTitle: "Kararlar ve raporlar, gerekçeleriyle tek ekranda.",
     previewNote: "Temsilî verilerle hazırlanmış arayüz önizlemesidir; gerçek müşteri verisi içermez.",
     benefitsEyebrow: "Faydalar",
     benefitsTitle: "Ekibinize ne kazandırır?",

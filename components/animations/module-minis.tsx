@@ -286,3 +286,79 @@ export function PortoShelves() {
     </div>
   );
 }
+
+// --- Lente: mercek tablo satırlarının üzerinden geçer, satırlar çubuğa dönüşür ---
+
+const LENTE_ROWS = [
+  { y: 52, bar: 150 },
+  { y: 82, bar: 110 },
+  { y: 112, bar: 180 },
+  { y: 142, bar: 80 },
+  { y: 172, bar: 130 },
+];
+const LENTE_START = 0.1;
+const LENTE_END = 0.6;
+const LENTE_DUR = "7s";
+const fx = (n: number) => n.toFixed(3);
+
+export function LenteLens() {
+  // Duraklatılmış karede (azaltılmış hareket) çubuklar görünür, mercek gizlidir.
+  const ref = useSvgPlayback<SVGSVGElement>(5.6);
+  return (
+    <svg ref={ref} {...svgProps}>
+      <line x1={20} x2={300} y1={26} y2={26} stroke="var(--color-line-strong)" strokeWidth={1} />
+      {LENTE_ROWS.map((r, i) => {
+        const hit = LENTE_START + ((LENTE_END - LENTE_START) * i) / (LENTE_ROWS.length - 1);
+        return (
+          <g key={r.y}>
+            <line x1={20} x2={300} y1={r.y + 15} y2={r.y + 15} stroke="var(--color-line-soft)" strokeWidth={1} />
+            {[
+              { x: 24, w: 44 },
+              { x: 96, w: 40 },
+              { x: 190, w: 34 },
+              { x: 252, w: 36 },
+            ].map((c) => (
+              <rect key={c.x} x={c.x} y={r.y - 2} width={c.w} height={4} rx={2} fill="var(--color-line-strong)">
+                <animate
+                  attributeName="opacity"
+                  values="1;1;0;0;1;1"
+                  keyTimes={`0;${fx(hit - 0.02)};${fx(hit + 0.03)};0.88;0.96;1`}
+                  dur={LENTE_DUR}
+                  repeatCount="indefinite"
+                />
+              </rect>
+            ))}
+            <rect x={24} y={r.y - 5} width={0} height={10} rx={2} fill="var(--color-accent)">
+              <animate
+                attributeName="width"
+                values={`0;0;${r.bar};${r.bar};0;0`}
+                keyTimes={`0;${fx(hit - 0.02)};${fx(hit + 0.06)};0.88;0.96;1`}
+                dur={LENTE_DUR}
+                repeatCount="indefinite"
+              />
+            </rect>
+          </g>
+        );
+      })}
+      <g opacity={0}>
+        <animate
+          attributeName="opacity"
+          values="0;1;1;0;0"
+          keyTimes={`0;${fx(LENTE_START - 0.04)};${fx(LENTE_END)};${fx(LENTE_END + 0.08)};1`}
+          dur={LENTE_DUR}
+          repeatCount="indefinite"
+        />
+        <animateTransform
+          attributeName="transform"
+          type="translate"
+          values="250,30;250,52;250,172;250,188;250,188"
+          keyTimes={`0;${fx(LENTE_START)};${fx(LENTE_END)};${fx(LENTE_END + 0.08)};1`}
+          dur={LENTE_DUR}
+          repeatCount="indefinite"
+        />
+        <circle r={15} fill="var(--color-bg)" fillOpacity={0.55} stroke="var(--color-fg)" strokeWidth={1.5} />
+        <line x1={11} y1={11} x2={22} y2={22} stroke="var(--color-fg)" strokeWidth={2} strokeLinecap="round" />
+      </g>
+    </svg>
+  );
+}
