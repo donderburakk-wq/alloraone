@@ -1,4 +1,3 @@
-import { UserRound } from "lucide-react";
 import { modules } from "@/lib/content/modules";
 import { about } from "@/lib/content/about";
 import { pageMetadata } from "@/lib/metadata";
@@ -15,7 +14,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 export const metadata = pageMetadata({ ...about.seo, path: "/hakkimizda" });
 
 export default function AboutPage() {
-  const { intro, story, vision, names, values, team } = about;
+  const { intro, story, vision, names, values } = about;
   return (
     <>
       <PageHeader eyebrow={intro.eyebrow} title={intro.title} lead={intro.lead} />
@@ -144,35 +143,6 @@ export default function AboutPage() {
                     </div>
                     <h3 className="font-display text-2xl font-medium tracking-[-0.025em]">{v.title}</h3>
                     <p className="leading-relaxed text-muted">{v.text}</p>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </Container>
-      </section>
-
-      {/* Ekip */}
-      <section className="py-24 sm:py-32" aria-labelledby="team-title">
-        <Container>
-          <Reveal className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-            <SectionHeading eyebrow={team.eyebrow} title={team.title} id="team-title" />
-            <p className="max-w-sm leading-relaxed text-muted lg:pb-1">{team.lead}</p>
-          </Reveal>
-          <Reveal className="mt-14">
-            <ul className="grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-              {team.members.map((member, i) => (
-                <li key={i} className="bg-bg">
-                  <article>
-                    <div className="hatch grid aspect-[4/5] place-items-center border-b border-line-soft">
-                      <span className="grid size-16 place-items-center rounded-full border border-line bg-bg text-faint">
-                        <UserRound aria-hidden strokeWidth={1.25} className="size-7" />
-                      </span>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="font-display text-xl font-medium tracking-[-0.02em]">{member.name}</h3>
-                      <p className="eyebrow mt-2">{member.title}</p>
-                    </div>
                   </article>
                 </li>
               ))}

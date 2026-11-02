@@ -103,16 +103,4 @@ export const about = {
       },
     ],
   },
-
-  team: {
-    eyebrow: "Ekip",
-    title: "AlloraOne'ın arkasındaki ekip",
-    lead: "Endüstri mühendisliği, veri bilimi ve perakende operasyonu deneyimini bir araya getiren bir ekip.",
-    members: [
-      { name: "[EKİP_ÜYESİ_ADI]", title: "[ÜNVAN]" },
-      { name: "[EKİP_ÜYESİ_ADI]", title: "[ÜNVAN]" },
-      { name: "[EKİP_ÜYESİ_ADI]", title: "[ÜNVAN]" },
-      { name: "[EKİP_ÜYESİ_ADI]", title: "[ÜNVAN]" },
-    ],
-  },
 } as const;
