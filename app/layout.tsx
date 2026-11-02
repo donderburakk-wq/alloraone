@@ -73,7 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         {/* Sayfa çerçevesi: içerik sütununu sınırlayan ince dikey çizgiler */}
         <div aria-hidden className="pointer-events-none absolute inset-0 z-0 hidden md:block">
-          <div className="mx-auto h-full max-w-7xl border-x border-line-soft" />
+          <div className="mx-auto h-full max-w-[120rem] border-x border-line-soft" />
         </div>
         <MotionProvider>
           <SmoothScroll />

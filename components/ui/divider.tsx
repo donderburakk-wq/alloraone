@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
  */
 export function Divider({ className }: { className?: string }) {
   return (
-    <div aria-hidden className={cn("relative mx-auto h-10 max-w-7xl border-y border-line-soft", className)}>
+    <div aria-hidden className={cn("relative mx-auto h-10 max-w-[120rem] border-y border-line-soft", className)}>
       <div className="hatch absolute inset-0" />
       <Cross className="-top-[5px] -left-[5px]" />
       <Cross className="-top-[5px] -right-[5px]" />

@@ -82,7 +82,7 @@ export function Header() {
       >
         <div
           className={cn(
-            "mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 transition-[height] duration-500 ease-out-expo sm:px-6 lg:px-10",
+            "mx-auto flex max-w-[120rem] items-center justify-between gap-6 px-4 transition-[height] duration-500 ease-out-expo sm:px-6 lg:px-10",
             compact ? "h-16" : "h-20 lg:h-24",
           )}
         >
