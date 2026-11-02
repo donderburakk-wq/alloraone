@@ -46,7 +46,7 @@ export const services = {
     rows: [
       { product: "Mont", factor: 0.4 },
       { product: "Trençkot", factor: 0.8 },
-      { product: "Tişört", factor: 1.3 },
+      { product: "T-shirt", factor: 1.3 },
     ],
   },
   portoPage: {
